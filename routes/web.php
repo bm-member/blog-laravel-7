@@ -12,10 +12,14 @@ Route::get('admin', function () {
     return view('admin.layouts.master');
 });
 
-Route::get('admin/post', 'Admin\PostController@index');
-Route::post('admin/post', 'Admin\PostController@store');
-Route::get('admin/post/create', 'Admin\PostController@create');
-Route::get('admin/post/{id}', 'Admin\PostController@show');
-Route::get('admin/post/{id}/edit', 'Admin\PostController@edit');
-Route::post('admin/post/{id}/edit', 'Admin\PostController@update');
-Route::get('admin/post/{id}/delete', 'Admin\PostController@destroy');
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function() {
+    Route::get('post', 'PostController@index');
+    Route::post('post', 'PostController@store');
+    Route::get('post/create', 'PostController@create');
+    Route::get('post/{id}', 'PostController@show');
+    Route::get('post/{id}/edit', 'PostController@edit');
+    Route::post('post/{id}/edit', 'PostController@update');
+    Route::get('post/{id}/delete', 'PostController@destroy');
+});
+
+

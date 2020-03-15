@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-md-12">
             <a href="{{ url('admin/post/create') }}" class="btn btn-primary mb-3">
-                Create
+                <i class="fas fa-plus-circle"></i> Create
             </a>
         </div>
         @foreach ($posts as $post)
@@ -27,13 +27,21 @@
                         {{ $post->title }}
                     </div>
                     <div class="card-body">
-                        {{ $post->content }}
+                        {{-- {{ strlen($post->content) > 100 ? substr($post->content, 0, 100) . '***' :  $post->content}} --}}
+                        {{-- {{ Str::limit($post->content, 200, '...') }} --}}
+                        {{ Str::limit($post->content, 200) }}
                     </div>
                     <div class="card-footer">
                         <div class="float-right">
-                            <a href="{{ url("admin/post/$post->id") }}" class="btn btn-info">View</a>
-                            <a href="{{ url("admin/post/$post->id/edit") }}" class="btn btn-success">Edit</a>
-                            <a href="{{ url("admin/post/$post->id/delete") }}" class="btn btn-danger">Del</a>
+                            <a href="{{ url("admin/post/$post->id") }}" class="btn btn-info">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ url("admin/post/$post->id/edit") }}" class="btn btn-success">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{{ url("admin/post/$post->id/delete") }}" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

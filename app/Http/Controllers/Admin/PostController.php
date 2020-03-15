@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 
 class PostController extends Controller
@@ -19,15 +20,21 @@ class PostController extends Controller
         return view('admin.post.create');
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
+        // $request->validate([
+        //     'title' => 'required|min: 2',
+        //     'content' => 'required|min: 3',
+        // ], [
+        //     'title.required' => 'ခေါင်းစဉ်ထည့်ရန်လိုအပ်သည်။',
+        //     'content.min' => 'အကြောင်းအရာအနည်းဆုံး ၃ လုံးထည့်ပါ။'
+        // ]);
         $post = new Post();
         $post->title = $request->title;
         $post->content = $request->content;
         $post->user_id = auth()->id();
         $post->save();
         return redirect('admin/post')->with('success', 'A post created successfully.');
-
     }
 
     public function show($id)
@@ -42,8 +49,16 @@ class PostController extends Controller
         return view('admin.post.edit', compact('post'));
     }
 
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
+        // $request->validate([
+        //     'title' => 'required|min: 2',
+        //     'content' => 'required|min: 3',
+        // ], [
+        //     'title.required' => 'ခေါင်းစဉ်ထည့်ရန်လိုအပ်သည်။',
+        //     'content.min' => 'အကြောင်းအရာအနည်းဆုံး ၃ လုံးထည့်ပါ။',
+        // ]);
+
         $post = Post::find($id);
         $post->title = $request->title;
         $post->content = $request->content;

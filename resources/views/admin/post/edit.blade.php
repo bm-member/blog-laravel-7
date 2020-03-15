@@ -12,6 +12,9 @@
             </a>
         </div>
         <div class="col-md-12">
+
+            @include('message.danger')
+
             <div class="card card-body">
                 <form action="{{ url("admin/post/$post->id/edit") }}" method="post">
                     @csrf
@@ -21,7 +24,7 @@
                     </div>
                     <div class="form-group">
                         <label>Post Content</label>
-                        <textarea name="content" class="form-control">
+                        <textarea name="content" rows="10" class="form-control">
                             {{ $post->content }}
                         </textarea>
                     </div>
