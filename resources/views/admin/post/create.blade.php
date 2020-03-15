@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Post Edit')
+@section('title', 'Post Create')
 
 @section('content')
 
@@ -13,19 +13,17 @@
         </div>
         <div class="col-md-12">
             <div class="card card-body">
-                <form action="{{ url("admin/post/$post->id/edit") }}" method="post">
-                    @csrf
+                <form action="{{ url('admin/post') }}" method="post">
+                    @csrf 
                     <div class="form-group">
                         <label>Post Title</label>
-                    <input type="text" name="title" value="{{ $post->title }}" class="form-control">
+                        <input type="text" name="title" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>Post Content</label>
-                        <textarea name="content" class="form-control">
-                            {{ $post->content }}
-                        </textarea>
+                        <textarea name="content" class="form-control"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </form>
             </div>
         </div>
