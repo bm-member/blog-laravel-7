@@ -15,7 +15,10 @@
                     {{ $post->title }}
                 </div>
                 <div class="card-body">
+                <img src="{{ asset($post->image ) }}" alt="">
+                <p>
                     {{ $post->content }}
+                </p>
                 </div>
                 <div class="card-footer">
                     Posted by {{ $post->user->name }} on <b>{{ $post->created_at->diffForHumans() }}</b>

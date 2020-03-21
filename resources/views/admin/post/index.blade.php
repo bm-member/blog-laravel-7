@@ -15,10 +15,21 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <a href="{{ url('admin/post/create') }}" class="btn btn-primary mb-3">
                 <i class="fas fa-plus-circle"></i> Create
             </a>
+        </div>
+        <div class="col-md-6">
+            <form>
+                <div class="input-group input-group" >
+                    <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                    
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
         </div>
         @foreach ($posts as $post)
             <div class="col-md-6">

@@ -16,7 +16,7 @@
             @include('message.danger')
 
             <div class="card card-body">
-                <form action="{{ url('admin/post') }}" method="post">
+                <form action="{{ url('admin/post') }}" method="post" enctype="multipart/form-data">
                     @csrf 
                     <div class="form-group">
                         <label>Post Title</label>
@@ -25,6 +25,10 @@
                     <div class="form-group">
                         <label>Post Content</label>
                         <textarea name="content" rows="10" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Post Image</label>
+                        <input type="file" name="image" class="form-control-file">
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>
