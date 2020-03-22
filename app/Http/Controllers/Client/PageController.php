@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Post;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,7 +18,9 @@ class PageController extends Controller
             $posts = Post::orderBy('id', 'desc')->paginate(10);
         }
 
-        return view('client.page.index', compact('posts'));
+        $categories = Category::all();
+
+        return view('client.page.index', compact('posts', 'categories'));
     }
 
     public function postDetail($id)
@@ -29,5 +32,15 @@ class PageController extends Controller
         // }
 
         return view('client.page.post_detail', compact('post'));
+    }
+
+    public function postByCategory($id)
+    {
+        $category = Category::findOrFail($id);
+        $categories = Category::all();
+        return view('client.page.index', [
+            'posts' => $category->posts,
+            'categories' => $categories
+        ]);
     }
 }

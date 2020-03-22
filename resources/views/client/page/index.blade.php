@@ -10,6 +10,7 @@
 </div>
 
 <div class="container">
+    {{-- Search Start --}}
     <div class="row">
         <div class="col-md-12">
             <form>
@@ -24,28 +25,44 @@
             </form>
         </div>
     </div>
+    {{-- Search End --}}
     <div class="row">
 
-
-            @forelse ($posts as $post)
-                <div class="col-md-4 mb-3">
+        <div class="col-md-8">
+            <div class="container-fluid">
+                @forelse ($posts as $post)
+                <div class="col-md-12 mb-3">
                     <div class="card">
                         <div class="card-body">
                             <h3>{{ $post->title }}</h3>
+                            <img src="{{ $post->image }}" alt="Post Image">
                             <p>{{ Str::limit($post->content, 100, '') }}</p>
                             <a href="{{ url("post/$post->id") }}" class="btn btn-primary">View Detail &raquo;</a>
                         </div>
                     </div>
                 </div>
-            @empty
+                @empty
                 <h3>There is no posts.</h3>
-            @endforelse
-
+                @endforelse
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h3>Category</h3>
+            <ul>
+                @foreach ($categories as $category)
+                    <li>
+                        <a href="{{ url("category/$category->id") }}" class="btn btn-link">
+                            {{ $category->name }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
         
     </div>
     <div class="row">
         <div class="col-md-12">
-            {{ $posts->links() }}
+            {{-- {{ $posts->links() ?? null }} --}}
         </div>
     </div>
 </div>
