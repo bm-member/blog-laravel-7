@@ -9,8 +9,14 @@ use App\Http\Controllers\Controller;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:isAdminOrAuthor');
+    }
+
     public function index()
     {
+        // $this->authorize('isAdminOrAuthor');
 
         if(request('search')) {
             $posts = Post::where('title', 'like', '%' . request('search') . '%')

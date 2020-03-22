@@ -13,13 +13,19 @@ class UserSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
+        $users = [
+            ['email' => 'mgmg@bm.com', 'role' => 'admin'],
+            ['email' => 'agag@bm.com', 'role' => 'author'],
+            ['email' => 'tuntun@bm.com', 'role' => 'guest'],
+        ];
 
-        for ($i = 0; $i < 3; $i++) {
+        foreach($users as $u) {
             $user = new User();
             $user->name = $faker->name;
-            $user->email = "mgmg$i@bm.com";
+            $user->email = $u['email'];
             $user->email_verified_at = now();
             $user->password = bcrypt('password'); // password
+            $user->role = $u['role'];
             $user->save();
         }
     }
