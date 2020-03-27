@@ -53,6 +53,12 @@
                             <a href="{{ url("admin/post/$post->id/delete") }}" class="btn btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
+
+                            <form method="post" action="{{ url("admin/post/$post->id") }}">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-warning">delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>

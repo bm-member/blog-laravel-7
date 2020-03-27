@@ -51,6 +51,13 @@
                         </li>
                         @endcan
 
+                        <li class="nav-item">
+                            <a href="{{ url('admin/category') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>CRUD</p>
+                            </a>
+                        </li>
+
                         @can('isAdmin')
                         <li class="nav-item">
                             <a href="{{ url('admin/user') }}" class="nav-link">

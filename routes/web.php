@@ -23,13 +23,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::view('/', 'admin.layouts.master');
     // Route::group(['middleware' => ['can:isAdminOrAuthor']], function() {
         // Post Routes
-        Route::get('post', 'PostController@index');
-        Route::post('post', 'PostController@store');
-        Route::get('post/create', 'PostController@create');
-        Route::get('post/{id}', 'PostController@show');
-        Route::get('post/{id}/edit', 'PostController@edit');
-        Route::post('post/{id}/edit', 'PostController@update');
-        Route::get('post/{id}/delete', 'PostController@destroy');
+        // Route::get('post', 'PostController@index');
+        // Route::post('post', 'PostController@store');
+        // Route::get('post/create', 'PostController@create');
+        // Route::get('post/{id}', 'PostController@show');
+        // Route::get('post/{id}/edit', 'PostController@edit');
+        // Route::put('post/{id}/edit', 'PostController@update');
+        // Route::delete('post/{id}/delete', 'PostController@destroy');
+
+        Route::resource('post', 'PostController');
         // Category Routes
         Route::get('/category', 'CategoryController@index');
         Route::get('/category/create', 'CategoryController@create');
@@ -61,3 +63,6 @@ Route::get('test', function() {
         echo $user['email']. '<br>';
     }
 });
+
+
+// Route::resource('crud', 'CRUD/CategoryController');
