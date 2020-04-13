@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    protected $guarded = [];
+
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -14,6 +16,12 @@ class Post extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->withTimestamps();
     }
+
+    public function images()
+    {
+        return $this->morphMany('App\Image', 'imageable');
+    }
+
 }

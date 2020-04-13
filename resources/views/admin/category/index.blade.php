@@ -26,14 +26,15 @@
         <!-- Create and Search (End) -->
         <div class="row">
             <div class="col-md-12">
-                <table class="table">
-                    <tr>
-                        <td>No</td>
-                        <td>Name</td>
-                        <td>Description</td>
-                        <td>Actions</td>
-                    </tr>
-                    @forelse ($categories as $category)
+                <div class="card card-body p-0">
+                    <table class="table">
+                        <tr>
+                            <td>No</td>
+                            <td>Name</td>
+                            <td>Description</td>
+                            <td>Actions</td>
+                        </tr>
+                        @forelse ($categories as $category)
                         <tr>
                             <td>{{ $category->id }}</td>
                             <td>{{ $category->name }}</td>
@@ -50,14 +51,15 @@
                                 </a>
                             </td>
                         </tr>
-                    @empty 
+                        @empty
                         <tr>
                             <td colspan="4">
                                 <h3>This is no Category {{ request('search') ?? '' }}</h3>
                             </td>
                         </tr>
-                    @endforelse
-                </table>
+                        @endforelse
+                    </table>
+                </div>
             </div>
         </div>
     </div>

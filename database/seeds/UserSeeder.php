@@ -12,21 +12,15 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-        $users = [
-            ['email' => 'mgmg@bm.com', 'role' => 'admin'],
-            ['email' => 'agag@bm.com', 'role' => 'author'],
-            ['email' => 'tuntun@bm.com', 'role' => 'guest'],
-        ];
 
-        foreach($users as $u) {
-            $user = new User();
-            $user->name = $faker->name;
-            $user->email = $u['email'];
-            $user->email_verified_at = now();
-            $user->password = bcrypt('password'); // password
-            $user->role = $u['role'];
-            $user->save();
-        }
+        $user = new User();
+        $user->name = 'Admin';
+        $user->email = 'admin@admin.com';
+        $user->password = bcrypt('password'); // password
+        $user->save();
+
+        factory(App\User::class, 10)->create()->each(function ($user) {
+            $user->posts()->saveMany(factory(App\Post::class, 2)->make());
+        });
     }
 }

@@ -26,24 +26,26 @@
         </div>
     </div>
     {{-- Search End --}}
-    <div class="row">
+    <div class="row ">
 
-        <div class="col-md-8">
-            <div class="container-fluid">
-                @forelse ($posts as $post)
-                <div class="col-md-12 mb-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>{{ $post->title }}</h3>
-                            <img src="{{ $post->image }}" alt="Post Image">
-                            <p>{{ Str::limit($post->content, 100, '') }}</p>
-                            <a href="{{ url("post/$post->id") }}" class="btn btn-primary">View Detail &raquo;</a>
+        <div class="col-md-8 ">
+            <div class="container-fluid px-0">
+                <div class="row ">
+                    @forelse ($posts as $post)
+                    <div class="col-md-12 mb-3 ">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3>{{ $post->title }}</h3>
+                                <img src="{{ $post->image }}" alt="Post Image">
+                                <p>{{ Str::limit($post->content, 100, '') }}</p>
+                                <a href="{{ url("post/$post->id") }}" class="btn btn-primary">View Detail &raquo;</a>
+                            </div>
                         </div>
                     </div>
+                    @empty
+                    <h3>There is no posts.</h3>
+                    @endforelse
                 </div>
-                @empty
-                <h3>There is no posts.</h3>
-                @endforelse
             </div>
         </div>
         <div class="col-md-4">
@@ -52,7 +54,7 @@
                 @foreach ($categories as $category)
                     <li>
                         <a href="{{ url("category/$category->id") }}" class="btn btn-link">
-                            {{ $category->name }}
+                            {{ $category->name }} ({{ $category->posts->count() }})
                         </a>
                     </li>
                 @endforeach
@@ -62,7 +64,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            {{-- {{ $posts->links() ?? null }} --}}
+            {{ $posts->links() }}
         </div>
     </div>
 </div>

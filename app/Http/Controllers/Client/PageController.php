@@ -13,11 +13,11 @@ class PageController extends Controller
     {
         if(request('q')) {
             $posts = Post::where('title', 'like', '%' . request('q') . '%')
-            ->orderBy('id', 'desc')->paginate(10);
+            ->orderBy('id', 'desc')->paginate(config('const.post_paginate'));
         } else {
-            $posts = Post::orderBy('id', 'desc')->paginate(10);
+            $posts = Post::orderBy('id', 'desc')->paginate(config('const.post_paginate'));
         }
-
+        
         $categories = Category::all();
 
         return view('client.page.index', compact('posts', 'categories'));
@@ -39,7 +39,7 @@ class PageController extends Controller
         $category = Category::findOrFail($id);
         $categories = Category::all();
         return view('client.page.index', [
-            'posts' => $category->posts,
+            'posts' => $category->posts()->paginate(3),
             'categories' => $categories
         ]);
     }

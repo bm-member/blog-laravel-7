@@ -50,16 +50,12 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->created_at }}</td>
                                     <td>
-                                        <form method="get" action="{{ route('admin.user.destroy', ['user' => $user->id ]) }}">
-                                            @csrf 
-                                            {{-- @method('delete') --}}
-                                            <a href="{{ route('admin.user.edit', ['user' => $user->id]) }}" class="btn btn-success btn-sm">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </form>
+                                        <a href="{{ route('admin.user.edit', ['user' => $user->id]) }}" class="btn btn-success btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{{ route('admin.user.destroy', ['user' => $user->id]) }}" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
