@@ -1,21 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Permission;
 
 Route::get('/', 'Client\PageController@index');
 Route::get('post/{post}', 'Client\PageController@postDetail');
 
 Auth::routes();
-// Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-// Route::get('admin', function () {
-//     return view('admin.layouts.master');
-// });
-
-// Route::view('admin', 'admin.layouts.master');
 
 Route::group([
     'prefix' => 'admin',
