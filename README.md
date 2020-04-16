@@ -1,19 +1,29 @@
-# BLog Laravel 7
+# BLog Sample
 
-### Commands
-```
-php artisan make:seeder PostSeeder
-php artisan db:seed
-php artisan migrate:fresh --seed
-```
+This is blog project sample include below list
 
-```
-HTTP - Hyper Text Transfer Protocol
-HTTP Status Code - 404, 403, 401, 500, etc...
-```
+- roles and permission
+- image uploading
+- Eloquent: Relationships
+  - One To Many
+  - Many To Many
+  - Polymorphic Relationships
 
-### Home Work
-```
+## Dependencies and Plugins
+- [spatie/laravel-permission](https://github.com/spatie/laravel-permission)
+- [AdminLTE3](https://adminlte.io/themes/v3/)
 
+## Installation
 
-```
+- git clone
+- composer install
+- cp .env.example .env
+- php artisan key:generate
+- setup database in .env
+- php artisan migrate --seed
+- php artisan serve
+
+The site will run localhost:8000
+
+## License
+MIT
