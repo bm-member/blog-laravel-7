@@ -7,9 +7,9 @@
         <div class="col-md-12">
             @include('message.alert')
         </div>
-        @can('create user')
+        @can('create role')
         <div class="col-md-12 mb-3">
-            <a href="{{ route('admin.user.create') }}" class="btn btn-primary">
+            <a href="{{ route('admin.role.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus-circle"></i>
                 Create
             </a>
@@ -18,7 +18,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">All Users List</h3>
+                    <h3 class="card-title">All Roles List</h3>
 
                     <div class="card-tools">
                         <form>
@@ -39,36 +39,34 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
                                 <th>Role</th>
                                 <th>Date</th>
-                                @canany(['edit user', 'delete user'])
+                                {{-- @canany(['edit roles', 'delete roles']) --}}
                                 <th>Actions</th>
-                                @endcanany
+                                {{-- @endcanany --}}
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($users as $user)
+                            @forelse ($roles as $role)
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->getRoleNames()->first() }}</td>
-                                <td>{{ $user->date }}</td>
+                                <td>{{ $role->id }}</td>
+                                <td>{{ $role->name }}</td>
+                                <td>{{ $role->date }}</td>
                                 <td>
-                                    @can('edit user')
-                                    <a href="{{ route('admin.user.edit', ['user' => $user->id]) }}" 
-                                        class="btn btn-success btn-sm float-left mr-3">
+                                    @can('edit role')
+                                    <a href="{{ route('admin.role.edit', ['role' => $role->id]) }}" class="btn btn-success btn-sm float-left mr-3">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     @endcan 
-                                    @can('delete user')
+                                    @can('delete role')
                                     <form method="post" class="float-left"
-                                        action="{{ route('admin.user.destroy', ['user' => $user->id ]) }}">
+                                        onsubmit="return confirm('Are you sure want to delete it?')"
+                                        action="{{ route('admin.role.destroy', ['role' => $role->id ]) }}">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger btn-sm">
+                                        <button type="submit" class="btn btn-danger btn-sm" 
+                                        {{ $role->isDisabled() }}
+                                        >
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </form>
@@ -77,7 +75,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5">There is no user.</td>
+                                <td colspan="5">There is no role.</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -87,7 +85,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            {{ $users->appends(['search' => request('search')])->links() }}
+            {{ $roles->appends(['search' => request('search')])->links() }}
         </div>
     </div>
 </div>

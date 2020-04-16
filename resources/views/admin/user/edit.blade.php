@@ -27,7 +27,17 @@
                         </div>
                         <div class="form-group">
                             <label>Password: <i class="text-info">(Default: password)</i></label>
-                            <input type="password" name="password" value="password" class="form-control">
+                            <input type="password" name="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select class="form-control" name="role">
+                                @foreach ($roles as $id => $name)
+                                <option value="{{ $id }}" 
+                                {{ $name === $userRole ? 'selected' : null }}
+                                >{{ $name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>

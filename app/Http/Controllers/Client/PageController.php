@@ -11,36 +11,21 @@ class PageController extends Controller
 {
     public function index()
     {
-        if(request('q')) {
-            $posts = Post::where('title', 'like', '%' . request('q') . '%')
-            ->orderBy('id', 'desc')->paginate(config('const.post_paginate'));
+        if(request('category')) {
+            $category = Category::find(request('category'));
+            $posts =  $category->posts()->orderBy('id', 'desc')
+            ->paginate(config('const.post_paginate'));
         } else {
-            $posts = Post::orderBy('id', 'desc')->paginate(config('const.post_paginate'));
+            $posts = Post::when(request('search'), function ($post) {
+                return $post->where('title', 'like', '%' . request('search') . '%');
+            })->orderBy('id', 'desc')->paginate(config('const.post_paginate'));
         }
-        
         $categories = Category::all();
-
         return view('client.page.index', compact('posts', 'categories'));
     }
 
-    public function postDetail($id)
+    public function postDetail(Post $post)
     {
-        $post = Post::findOrFail($id);
-
-        // if(!$post) {
-        //     abort(404);
-        // }
-
         return view('client.page.post_detail', compact('post'));
-    }
-
-    public function postByCategory($id)
-    {
-        $category = Category::findOrFail($id);
-        $categories = Category::all();
-        return view('client.page.index', [
-            'posts' => $category->posts()->paginate(3),
-            'categories' => $categories
-        ]);
     }
 }

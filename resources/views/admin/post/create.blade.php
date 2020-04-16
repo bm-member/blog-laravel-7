@@ -13,18 +13,20 @@
         </div>
         <div class="col-md-12">
 
-            @include('message.danger')
+            @include('message.alert')
 
             <div class="card card-body">
                 <form action="{{ url('admin/post') }}" method="post" enctype="multipart/form-data">
                     @csrf 
                     <div class="form-group">
                         <label>Post Title</label>
-                        <input type="text" name="title" class="form-control">
+                        <input type="text" name="title" value="{{ old('title') }}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>Post Content</label>
-                        <textarea name="content" rows="10" class="form-control"></textarea>
+                        <textarea name="content" rows="10" class="form-control">
+                            {{ old('content') }}
+                        </textarea>
                     </div>
                     <div class="form-group">
                         <label >Category</label>

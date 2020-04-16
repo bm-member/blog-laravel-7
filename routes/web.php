@@ -1,13 +1,10 @@
 <?php
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Permission;
 
 Route::get('/', 'Client\PageController@index');
-Route::get('post/{id}', 'Client\PageController@postDetail');
-Route::get('category/{id}', 'Client\PageController@postByCategory');
+Route::get('post/{post}', 'Client\PageController@postDetail');
 
 Auth::routes();
 // Route::get('logout', 'Auth\LoginController@logout');
@@ -40,16 +37,21 @@ Route::group([
     Route::get('/category', 'CategoryController@index');
     Route::get('/category/create', 'CategoryController@create');
     Route::post('/category', 'CategoryController@store');
-    Route::post('/category/{id}', 'CategoryController@show');
+    Route::get('/category/{id}', 'CategoryController@show');
     Route::get('/category/{id}/edit', 'CategoryController@edit');
     Route::post('/category/{id}/edit', 'CategoryController@update');
     Route::get('/category/{id}/delete', 'CategoryController@destroy');
     // });
     // User Routes
     Route::resource('/user', 'UserController');
+    // Role Routes
+    Route::resource('role', 'RoleController');
+    // Profile Routes
+    Route::view('profile', 'admin.profile.index')->name('profile.index');;
+    Route::view('profile/edit', 'admin.profile.edit')->name('profile.edit');
+    Route::put('profile/edit', 'ProfileController@update')->name('profile.update');
+    Route::view('profile/password', 'admin.profile.edit_password')->name('profile.edit.password');
+    Route::post('profile/password', 'ProfileController@updatePassword')->name('profile.update.password');
+    
 });
 
-
-Route::get('test', function () {
-    Log::channel('slack')->info('Something happened!');
-});

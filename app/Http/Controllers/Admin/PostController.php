@@ -6,9 +6,6 @@ use App\Post;
 use App\Image;
 use App\Category;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Http\Requests\PostRequest;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostStoreRequest;
 use App\Traits\UploadTrait;
@@ -16,6 +13,13 @@ use App\Traits\UploadTrait;
 class PostController extends Controller
 {
     use UploadTrait;
+
+    function __construct()
+    {
+        $this->middleware('can:create post', ['only' => ['create', 'store']]);
+        $this->middleware('can:edit post', ['only' => ['edit', 'update']]);
+        $this->middleware('can:delete post', ['only' => ['destroy']]);
+    }
     
     public function index()
     {
@@ -121,6 +125,12 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        // Define image path
+        $imagePath = config('path.image.post');
+        // Delete old images
+        foreach ($post->images as $oldImage) {
+            $this->deleteUploadFile($imagePath, $oldImage->filename);
+        }
         $post->delete();
         return redirect('admin/post')->with('success', 'A post deleted successfully.');
     }

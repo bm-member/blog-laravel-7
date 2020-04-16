@@ -24,4 +24,22 @@ class Post extends Model
         return $this->morphMany('App\Image', 'imageable');
     }
 
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if(isset($this->image->filename)) {
+            return asset('post/'. $this->image->filename);
+        }
+        return asset('image/default_post.jpg');
+    }
+
+    public function getDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
 }

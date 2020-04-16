@@ -12,10 +12,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        $this->call(UserSeeder::class); // include creating posts
+        $this->call(PermissionSeeder::class);
+        $this->call(UserSeeder::class);
         // $this->call(PostSeeder::class);
-        factory(App\Category::class, 5)->create();
-        // factory(App\Post::class, 10)->create();
+        factory(App\Category::class, 5)->create()->each(function($category) {
+            $category->posts()->saveMany(factory(App\Post::class, rand(1, 10))->make());
+        });
         
     }
 }

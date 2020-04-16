@@ -14,7 +14,7 @@
         </div>
         <div class="col-md-12">
 
-            @include('message.danger')
+            @include('message.alert')
 
             <div class="card card-body">
                 <form action="{{ url("admin/category/$category->id/edit") }}" method="post">

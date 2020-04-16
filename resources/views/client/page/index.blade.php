@@ -15,9 +15,10 @@
         <div class="col-md-12">
             <form>
                 <div class="input-group mb-3">
-                    <input type="text" name="q" class="form-control" placeholder="Search By post title">
+                    <input type="text" name="search" value="{{ request('search') }}"
+                    class="form-control" placeholder="Search By post title">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" id="button-addon2">
+                        <button class="btn btn-primary" type="submit" id="button-addon2">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -35,9 +36,10 @@
                     <div class="col-md-12 mb-3 ">
                         <div class="card">
                             <div class="card-body">
+                                <img src="{{ $post->image_url }}" class="img-fluid mb-3" alt="Post Image">
                                 <h3>{{ $post->title }}</h3>
-                                <img src="{{ $post->image }}" alt="Post Image">
-                                <p>{{ Str::limit($post->content, 100, '') }}</p>
+                                <p>Post <small><i>{{ $post->date }}</i></small> by <b>{{ $post->user->name }}</b></p>
+                                <p>{{ Str::limit($post->content, 400, '...') }}</p>
                                 <a href="{{ url("post/$post->id") }}" class="btn btn-primary">View Detail &raquo;</a>
                             </div>
                         </div>
@@ -53,7 +55,7 @@
             <ul>
                 @foreach ($categories as $category)
                     <li>
-                        <a href="{{ url("category/$category->id") }}" class="btn btn-link">
+                        <a href="{{ url("/?category=$category->id") }}" class="btn btn-link">
                             {{ $category->name }} ({{ $category->posts->count() }})
                         </a>
                     </li>
@@ -64,7 +66,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            {{ $posts->links() }}
+            {{ $posts->appends(['search'=>request('search'), 'category'=>request('category')])->links() }}
         </div>
     </div>
 </div>

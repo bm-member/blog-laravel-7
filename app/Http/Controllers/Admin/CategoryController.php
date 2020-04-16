@@ -8,16 +8,19 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('can:create category', ['only' => ['create', 'store']]);
+        $this->middleware('can:edit category', ['only' => ['edit', 'update']]);
+        $this->middleware('can:delete category', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
-        if(request('search')) {
-            $categories = Category::where('name', 'like', '%' . request('search') . '%')
-                ->where('description', 'like', '%' . request('search') . '%')
-                ->orderBy('id', 'desc')
-                ->get();
-        } else {
-            $categories = Category::orderBy('id', 'desc')->get();
-        }
+        $categories = Category::when(request('search'), function($category) {
+            return $category->where('name', 'like', '%' . request('search') . '%')
+                ->orWhere('description', 'like', '%' . request('search') . '%');
+        })->orderBy('id', 'desc')->get();
         
         return view('admin.category.index', compact('categories'));
     }

@@ -2,6 +2,6 @@
 
 return [
     'image' => [
-        'post' => '/post_image/'
+        'post' => '/post/'
     ]
 ];

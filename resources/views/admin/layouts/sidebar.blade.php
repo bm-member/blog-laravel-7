@@ -34,33 +34,44 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @can('view role')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.role.index') }}" class="nav-link">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>Role & Permission</p>
+                            </a>
+                        </li>
+                        @endcan 
+                        @can('view post')
                         <li class="nav-item">
                             <a href="{{ url('admin/post') }}" class="nav-link">
                                 <i class="fas fa-file-alt nav-icon"></i>
                                 <p>Post</p>
                             </a>
                         </li>
+                        @endcan 
+                        @can('view category')
                         <li class="nav-item">
                             <a href="{{ url('admin/category') }}" class="nav-link">
                                 <i class="fas fa-th nav-icon"></i>
                                 <p>Category</p>
                             </a>
                         </li>
-
+                        @endcan 
+                        @can('view user')
                         <li class="nav-item">
                             <a href="{{ url('admin/user') }}" class="nav-link">
                                 <i class="fas fa-users nav-icon"></i>
                                 <p>Users</p>
                             </a>
                         </li>
-
+                        @endcan
                         <li class="nav-item">
                             <a href="{{ url('admin/profile') }}" class="nav-link">
                                 <i class="fas fa-user nav-icon"></i>
                                 <p>Profile</p>
                             </a>
                         </li>
-
                     </ul>
                 </li>
                 <li class="nav-item">
