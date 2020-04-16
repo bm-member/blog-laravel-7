@@ -10,6 +10,7 @@ This is blog project sample include below list
   - Polymorphic Relationships
 
 ## Dependencies and Plugins
+
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission)
 - [AdminLTE3](https://adminlte.io/themes/v3/)
 
@@ -25,5 +26,22 @@ This is blog project sample include below list
 
 The site will run localhost:8000
 
+## Default Users
+
+```cmd
+// Admin User
+username - admin@admin.com
+password - password
+
+// Author User
+username - author@author.com
+password - password
+
+// Normal User
+username - user@user.com
+password - password
+```
+
 ## License
+
 MIT
