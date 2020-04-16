@@ -15,12 +15,21 @@
                     {{ $post->title }}
                 </div>
                 <div class="card-body">
-                <img src="{{ asset($post->image ) }}" alt="">
+                @foreach ($post->images as $image)
+                    <img src="{{ $image->post_image_link }}" alt="">
+                @endforeach
                 <p>
                     {{ $post->content }}
                 </p>
                 </div>
                 <div class="card-footer">
+                    @foreach ($post->categories as $categroy)
+                        {{ $categroy->name }} 
+                        @if (!$loop->last)
+                            |
+                        @endif
+                    @endforeach
+                    <br><hr>
                     Posted by {{ $post->user->name }} on <b>{{ $post->created_at->diffForHumans() }}</b>
                 </div>
             </div>

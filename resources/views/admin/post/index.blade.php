@@ -7,18 +7,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-            @endif
+            @include('message.alert')
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
+            @can('create post')
             <a href="{{ url('admin/post/create') }}" class="btn btn-primary mb-3">
                 <i class="fas fa-plus-circle"></i> Create
             </a>
+            @endcan
         </div>
         <div class="col-md-6">
             <form>
@@ -47,18 +45,16 @@
                             <a href="{{ url("admin/post/$post->id") }}" class="btn btn-info">
                                 <i class="fas fa-eye"></i>
                             </a>
+                            @can('edit post')
                             <a href="{{ url("admin/post/$post->id/edit") }}" class="btn btn-success">
                                 <i class="fas fa-edit"></i>
                             </a>
+                            @endcan 
+                            @can('delete post')
                             <a href="{{ url("admin/post/$post->id/delete") }}" class="btn btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
-
-                            <form method="post" action="{{ url("admin/post/$post->id") }}">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-warning">delete</button>
-                            </form>
+                            @endcan
                         </div>
                     </div>
                 </div>
